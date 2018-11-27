@@ -5,37 +5,63 @@ def solve_1(num):
         first output: the shell in which the number is located
         second output: the dimensions of the array
         this is the lowerbound of the steps
-        can we get the dimensions for that shell?
         '''
         shell = 0
         i = 0
-        current_shell_limit = 1
+        current_shell_max = 1
         while not shell:
             i += 1
-            current_shell_limit += i*8
-            if num <= current_shell_limit:
+            current_shell_max += i*8
+            if num <= current_shell_max:
                 shell = i
         return (shell, shell*2+1)
 
-    return which_shell(num)
+    shell, dim = which_shell(num)
+    # first output: coordinates of the first point in the shell of dimension dim x dim
+    first_elem_coor = (dim, 1)
+    first_elem_val = (dim-2) * (dim-2) + 1
+    distance = num - first_elem_val
+
+    # 0 - right
+    # 1 - top
+    # 2 - left
+    # 3 - bottom
+    # which side of the square our assigned point is
+    side = (distance) // (dim-1)
+
+    # calculate the coordinates of our point
+    if side == 0:
+# correct
+        num_coor = (first_elem_coor[0], distance + first_elem_coor[0])
+    elif side == 1:
+# correct
+        num_coor = (distance+1-(dim-1), dim-1)
+    elif side == 2:
+# incorrect
+        num_coor = (0, distance+1-(dim-1)*2)
+    else:
+# correct
+        num_coor = (distance-(dim-1)*2-(dim-2), 0)
+
+    # manhattan distance
+    print('num_coor: {0}'.format(num_coor))
+    print('side: {0}'.format(side))
+    return abs(dim//2 - num_coor[0]) + abs(dim//2 - num_coor[1])
 
 
-
-'''
-# First Square (3x3; 8 numbers) 2*4
-# Second Square (5x5; 16 numbers) 4*4
-# Third Square (7x7; 24 numbers) 6*4
-'''
-
-
+print("1: ")
+print(solve_1(1))
+print("---------")
 print("12: ")
 print(solve_1(12))
 print("---------")
 print("23: ")
 print(solve_1(23))
+print('---------')
+print("18: ")
+print(solve_1(18))
 print("---------")
 print("1024: ")
 print(solve_1(1024))
-print("---------")
 print("289326: ")
 print(solve_1(289326))
