@@ -3,11 +3,25 @@ def solve_1(freq):
     Starting with a frequency of 0, what is the resulting frequency after all of the changes in
     frequency have been applied?
     '''
-    freq_list = [int(i) for i in freq.split('\n')]
-    total = 0
-    for i in freq_list:
-        total += i
-    return total
+    freq_change_list = [int(i) for i in freq.split('\n')]
+    current_freq = 0
+    for i in freq_change_list:
+        current_freq += i
+    return current_freq
+
+def solve_2(freq):
+    '''
+    What is the first frequency your device reaches twice?
+    '''
+    current_freq = 0
+    freq_change_list = [int(i) for i in freq.split('\n')]
+    freq_hist_list = [current_freq]
+    while(True):
+        for freq_change in freq_change_list:
+            current_freq += freq_change
+            if current_freq in freq_hist_list:
+                return current_freq
+            freq_hist_list.append(current_freq)
 
 puzzle_input='''-10
 +18
@@ -1030,3 +1044,4 @@ puzzle_input='''-10
 
 
 print(solve_1(puzzle_input))
+print(solve_2(puzzle_input))
