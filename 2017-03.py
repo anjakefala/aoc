@@ -31,16 +31,16 @@ def solve_1(num):
 
     # calculate the coordinates of our point
     if side == 0:
-# correct
+    # correct
         num_coor = (first_elem_coor[0], distance + first_elem_coor[0])
     elif side == 1:
-# correct
+    # correct
         num_coor = (distance+1-(dim-1), dim-1)
     elif side == 2:
-# incorrect
+    # incorrect
         num_coor = (0, distance+1-(dim-1)*2)
     else:
-# correct
+    # correct
         num_coor = (distance-(dim-1)*2-(dim-2), 0)
 
     # manhattan distance
@@ -48,20 +48,10 @@ def solve_1(num):
     print('side: {0}'.format(side))
     return abs(dim//2 - num_coor[0]) + abs(dim//2 - num_coor[1])
 
+def solve_2(num):
+    '''
+    What is the first value written that is *larger* than your puzzle input?
+    '''
 
-print("1: ")
-print(solve_1(1))
-print("---------")
-print("12: ")
-print(solve_1(12))
-print("---------")
-print("23: ")
-print(solve_1(23))
-print('---------')
-print("18: ")
-print(solve_1(18))
-print("---------")
-print("1024: ")
-print(solve_1(1024))
-print("289326: ")
+
 print(solve_1(289326))
